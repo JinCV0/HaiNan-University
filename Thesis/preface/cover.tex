@@ -1,0 +1,33 @@
+% !Mode:: "TeX:UTF-8"
+
+%%  可通过增加或减少 setup/format.tex中的
+%%  第274行 \setlength{\@title@width}{8cm}中 8cm 这个参数来 控制封面中下划线的长度。
+%%  只设置了学院的左对齐，要修改对齐方式的话请修改 setup/format.tex 中的 第282行 和 第286行 居中
+%%  使用'\\' 双斜杠强制换行,但仍是一段。使用双回车为新段落。
+
+\cheading{这是正文的页眉}      % 设置正文的页眉，需要填上对应的毕业年份
+\ctitle{这是封面标题}    % 封面用论文标题，自己可手动断行
+\cnumber{20213007234}        % 学生学号
+\cauthor{XX}            % 学生姓名
+\cgrade{2021~级}            % 年级
+\caffil{热带农林学院（农业农村学院、乡村振兴学院）} % 学院名称
+\cdegree{XX系} % 系名称
+\csubject{XX专业}   % 专业名称
+\csupervisor{XX}        % 导师姓名
+\cdate{\the\year~年~\the\month~月~\the\day~日}% 完成日期，年月格式
+
+\cabstract{
+这里是中文摘要
+}
+
+\ckeywords{关键词1；关键词2；关键词3；关键词4}
+
+\eabstract{
+Here is the English abstract.
+}
+
+\ekeywords{Abstract 1; Abstract 2; Abstract 3; Abstract 4}
+
+\makecover
+
+\clearpage

@@ -1,0 +1,81 @@
+% !Mode:: "TeX:UTF-8"
+% !TEX program = xelatex
+
+
+%%%%%%%%%% Port for Win %%%%%%%%%%%
+% Modified: Cheng Hong
+
+\def\usewhat{xelatex}
+\documentclass[12pt,openany,oneside]{ctexbook}
+
+% ------- 章节编号改为阿拉伯数字（CTeX v2 语法） -------
+\ctexset{
+  chapter/name = {},        % 去掉“第”
+  chapter/number = \arabic{chapter},  % 阿拉伯数字编号
+  chapter/format = \thechapter        % 只显示“1”，“2”不带“章”
+}
+% -------------------------------------------------------
+
+% ------- 取消 \chapter 自动换页 -------
+\makeatletter
+\renewcommand{\chapter}{%
+  \@afterindentfalse
+  \secdef\@chapter\@schapter}
+\makeatother
+% -----------------------------------
+
+\input{setup/package}                                % 定义本文所使用宏包
+\graphicspath{{figures/}}                            % 定义所有的图像文件在 figures 子目录下
+\begin{document}                                     % 开始全文
+\input{setup/format}                                 % 完成对论文各个部分格式的设置
+\frontmatter                                         % 以下是论文导言部分，包括论文的封面，中英文摘要和中文目录
+
+% 直接从 Word 模板生成封面导出 pdf 似乎更方便
+\pagenumbering{Roman} 
+\input{preface/cover}                                % 封面
+
+%%%%%%%%%%   目录   %%%%%%%%%%
+\defaultfont
+\clearpage{\cleardoublepage}
+\titleformat{\chapter}{\centering\sanhao\song\bfseries}{\chaptername}{2em}{} % 设置“目 录”二字格式
+\pdfbookmark[0]{目~~录}{mulu}
+\fancypagestyle{plain}{                              % 设置章节首页页眉页脚风格
+    \fancyhf{}
+    \fancyhead[C]{\song\wuhao 目录}
+    \fancyfoot[C]{\song\xiaowu~\thepage~}
+    \renewcommand{\headrulewidth}{0.5pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+\tableofcontents                                     % 中文目录
+
+
+% 设置正文部分的格式和页眉页脚样式
+\mainmatter % 开始正文部分，页码格式切换为阿拉伯数字
+\defaultfont % 恢复默认字体设置
+\sloppy % 宽松的排版，避免过多的单词溢出
+\raggedbottom % 使页面底部不对齐，避免强制填充页面
+
+
+% 设置正文页码从 1 开始
+\setcounter{page}{1}
+
+\titleformat{\chapter}{\sanhao\bfseries\song}{\chaptername}{0.5em}{} % 正文章节标题格式
+
+%%%%%%%%%  正文  %%%%%%%%%
+\include{body}
+% \include{mybod}                        
+%%%%%%%%%% 致谢  %%%%%%%%%%
+\include{appendix/acknowledgements}            % 致谢
+%%%%%%%%%%  参考文献  %%%%%%%%%%
+
+\defaultfont
+\titleformat{\chapter}{\centering\sanhao\song\bfseries}{\chaptername}{2em}{} % 设置“参考文献”格式
+\bibliographystyle{references/ref.buk}
+\phantomsection
+\markboth{参考文献}{参考文献}
+\addcontentsline{toc}{chapter}{参考文献}       % 参考文献加入到目录
+% \nocite{*}  %所有参考文献都显示出来
+\bibliography{references/reference}
+
+\clearpage
+\end{document}                                 % 结束全文
